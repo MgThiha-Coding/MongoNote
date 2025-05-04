@@ -1,20 +1,26 @@
 import 'package:classic/model/model.dart';
-import 'package:classic/view/viewnote/view_note_page.dart';
 import 'package:classic/viewmodel/api_service.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:mongo_dart/mongo_dart.dart' as M;
 
-class AddNotePage extends StatefulWidget {
-  const AddNotePage({super.key});
+class EditNotePage extends StatefulWidget {
+  final Model note;
+  const EditNotePage({super.key, required this.note});
 
   @override
-  State<AddNotePage> createState() => _AddNotePageState();
+  State<EditNotePage> createState() => _EditNotePageState();
 }
 
-class _AddNotePageState extends State<AddNotePage> {
+class _EditNotePageState extends State<EditNotePage> {
   late TextEditingController titleController = TextEditingController();
   late TextEditingController contentController = TextEditingController();
+
+  @override
+  void initState() {
+    titleController = TextEditingController(text: widget.note.title);
+    contentController = TextEditingController(text: widget.note.content);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,52 +29,20 @@ class _AddNotePageState extends State<AddNotePage> {
       'yyyy-MM-dd HH:mm:ss',
     ).format(now); // 2025-05-05 13:24:36
     return Scaffold(
-      backgroundColor: Colors.grey[300],
-      drawer: Drawer(
-        child: Column(
-          children: [
-            UserAccountsDrawerHeader(
-              decoration: BoxDecoration(color: Color(0xFF13AA52)),
-              accountName: Text('ClassicNote'),
-              accountEmail: Text(''),
-              currentAccountPicture: CircleAvatar(
-                backgroundColor: Colors.white,
-                child: Text(
-                  'CN',
-                  style: TextStyle(fontSize: 24, color: Color(0xFF13AA52)),
-                ),
-              ),
-            ),
-            ListTile(
-              leading: Icon(Icons.note, color: Colors.green),
-              title: Text('My Notes'),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => ViewNotePage()),
-                );
-              },
-            ),
-          ],
-        ),
-      ),
-
       appBar: AppBar(
         iconTheme: IconThemeData(color: Colors.white),
-        backgroundColor: Color(0xFF13AA52), // MongoDB Green
-
+        backgroundColor: Color(0xFF13AA52), //
         title: Text(
-          'ClassicPad',
+          'YourNote',
           style: TextStyle(
-            fontSize: 20,
             color: Colors.white,
-            fontWeight: FontWeight.bold,
+            fontSize: 20,
             fontStyle: FontStyle.italic,
           ),
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+        padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
         child: SingleChildScrollView(
           child: Column(
             children: [
@@ -78,6 +52,9 @@ class _AddNotePageState extends State<AddNotePage> {
                 decoration: InputDecoration(
                   hintText: "Title",
                   labelText: "Title",
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
                 ),
               ),
               const SizedBox(height: 10),
@@ -85,6 +62,7 @@ class _AddNotePageState extends State<AddNotePage> {
                 controller: contentController,
                 maxLines: null,
                 decoration: InputDecoration(
+                  contentPadding: EdgeInsets.only(left: 7),
                   hintText: "Content",
                   labelText: "Content",
                   labelStyle: TextStyle(color: Colors.blue),
@@ -95,25 +73,20 @@ class _AddNotePageState extends State<AddNotePage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.red,
+        backgroundColor: Colors.green,
 
         onPressed: () async {
           final title = titleController.text;
           final content = contentController.text;
-          var id = M.ObjectId();
+
           final result = Model(
             title: title,
             content: content,
             time: date,
-            id: id,
+            id: widget.note.id,
           );
-          await ApiService.save(result);
-          if (title.isNotEmpty || content.isNotEmpty) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => ViewNotePage()),
-            );
-          }
+          await ApiService.update(result);
+          Navigator.pop(context, true);
           titleController.clear();
           contentController.clear();
           setState(() {});
