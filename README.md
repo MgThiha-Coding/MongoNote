@@ -4,7 +4,7 @@ ClassicPad
 A simple Flutter application for managing notes with CRUD operations (Create, Read, Update, Delete) using MongoDB Atlas. The project is organized using the Model-View-ViewModel (MVVM) pattern with a Repository layer.
 
 Project Structure 
-
+<pre>
 lib/
 ├── model/
 │   └── model.dart           # Data model for notes
@@ -17,7 +17,7 @@ lib/
 ├── repository/
 │   └── constant.dart        # MongoDB URL and collection
 └── main.dart                # Entry point
-
+</pre>
 ## 🛠 Features
 
 - ➕ **Create Note** – Add a new note with title and content
