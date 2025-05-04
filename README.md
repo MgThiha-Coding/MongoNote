@@ -1,16 +1,30 @@
-# classic
 
-A new Flutter project.
+ClassicPad 
 
-## Getting Started
+A simple Flutter application for managing notes with CRUD operations (Create, Read, Update, Delete) using MongoDB Atlas. The project is organized using the Model-View-ViewModel (MVVM) pattern with a Repository layer.
 
-This project is a starting point for a Flutter application.
+Project Structure 
 
-A few resources to get you started if this is your first Flutter project:
+lib/
+├── model/
+│   └── model.dart           # Data model for notes
+├── view/
+│   └── viewnote/            
+│       ├── view_note_page.dart   # Main note listing & UI
+│       └── edit_note_page.dart   # Edit note UI
+├── viewmodel/
+│   └── api_service.dart     # MongoDB connection and data handling
+├── repository/
+│   └── constant.dart        # MongoDB URL and collection
+└── main.dart                # Entry point
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## 🛠 Features
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- ➕ **Create Note** – Add a new note with title and content
+- 📄 **Read Notes** – View all saved notes in a scrollable list
+- ✏️ **Update Note** – Edit and update existing notes
+- 🗑️ **Delete Note** – Remove individual notes with confirmation
+- ❌ **Delete All Notes** – One-click delete for all notes
+- 🔄 **Manual Refresh** – Refresh the note list using a FloatingActionButton
+- 🧱 **MVVM Structure** – Clean separation using Model, View, ViewModel, and Repository layers
+- ☁️ **MongoDB Atlas Integration** – Uses `mongo_dart` to connect with a remote MongoDB cluster
