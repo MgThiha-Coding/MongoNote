@@ -29,12 +29,12 @@ class _AddNotePageState extends State<AddNotePage> {
           children: [
             UserAccountsDrawerHeader(
               decoration: BoxDecoration(color: Color(0xFF13AA52)),
-              accountName: Text('ClassicNote'),
-              accountEmail: Text(''),
+              accountName: Text('MongoNote'),
+              accountEmail: Text('CRUD Operation'),
               currentAccountPicture: CircleAvatar(
                 backgroundColor: Colors.white,
                 child: Text(
-                  'CN',
+                  'MN',
                   style: TextStyle(fontSize: 24, color: Color(0xFF13AA52)),
                 ),
               ),
@@ -58,7 +58,7 @@ class _AddNotePageState extends State<AddNotePage> {
         backgroundColor: Color(0xFF13AA52), // MongoDB Green
 
         title: Text(
-          'ClassicPad',
+          'MongoNote',
           style: TextStyle(
             fontSize: 20,
             color: Colors.white,
