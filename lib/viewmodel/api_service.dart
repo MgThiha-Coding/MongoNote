@@ -6,6 +6,7 @@ class ApiService {
   static late Db db;
   static late DbCollection dbCollection;
 
+  // connect
   static Future<void> connect() async {
     try {
       db = await Db.create(MONGO_URL);
