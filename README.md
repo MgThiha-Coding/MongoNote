@@ -1,5 +1,5 @@
 
-ClassicPad 
+MongoNote
 
 A simple Flutter application for managing notes with CRUD operations (Create, Read, Update, Delete) using MongoDB Atlas. The project is organized using the Model-View-ViewModel (MVVM) pattern with a Repository layer.
 
